@@ -1,0 +1,102 @@
+import React from 'react';
+import { SafeAreaView, Text, View, FlatList } from 'react-native';
+import { ScreenHeader } from '../../components/screensHeader';
+import CalenderSvg from '../../assets/svg/calnder.svg';
+import RecordCategoryCard from '../../components/categoryCard';
+import { styles } from './styles';
+import SmallBloodPresserSvg from '../../assets/svg/smallBlood.svg';
+import SmallHeartAttackSvg from '../../assets/svg/Smallheart-attack.svg';
+import SmallBloodSugarSvg from '../../assets/svg/Smallsugar-blood-level.svg';
+import SmallBmiSvg from '../../assets/svg/Smallbmi.svg';
+import { COLORS } from '../../theme/colors';
+
+const recordsData = [
+  {
+    id: '1',
+    title: 'Blood Pressure',
+    icon: <SmallBloodPresserSvg />,
+    color: COLORS.SECONDARY,
+    data: [
+      { id: 'bp1', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+      { id: 'bp2', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+      { id: 'bp3', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+      { id: 'bp4', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+    ],
+  },
+  {
+    id: '2',
+    title: 'Heart Rate',
+    icon: <SmallHeartAttackSvg />,
+    color: '#F7F1FC',
+    data: [
+      { id: 'hr1', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+    ],
+  },
+  {
+    id: '3',
+    title: 'Blood Sugar',
+    icon: <SmallBloodSugarSvg />,
+    color: '#F4FCF1',
+    data: [
+      { id: 'bs1', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+    ],
+  },
+  {
+    id: '4',
+    title: 'BMI',
+    icon: <SmallBmiSvg />,
+    color: '#FCF6F1',
+    data: [
+      { id: 'bmi1', label: 'Normal', value: '118/76', date: '26 Jan 2024', bpm: '68' },
+    ],
+  },
+];
+
+const RecordScreen = () => {
+  const renderReportCategory = ({ item }) => (
+    <View style={styles.reportContainer}>
+      <View style={styles.textIconContainer}>
+        {item.icon}
+        <Text style={styles.titleText}>{item.title}</Text>
+      </View>
+      <FlatList
+        data={item.data}
+        keyExtractor={(dataItem) => dataItem.id}
+        renderItem={({ item: dataItem }) => (
+          <RecordCategoryCard
+            label={dataItem.label}
+            value={dataItem.value}
+            date={dataItem.date}
+            bpm={dataItem.bpm}
+            color={item.color}
+          />
+        )}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        ItemSeparatorComponent={() => <View style={{ width: 10 }} />} 
+      />
+    </View>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={recordsData}
+        keyExtractor={(item) => item.id}
+        renderItem={renderReportCategory}
+        ListHeaderComponent={
+          <>
+            <ScreenHeader title="Records" />
+            <View style={styles.dateContainer}>
+              <CalenderSvg />
+              <Text style={styles.dateText}>26 Jan 2024</Text>
+            </View>
+          </>
+        }
+        ItemSeparatorComponent={() => <View style={styles.divider} />} 
+      />
+    </SafeAreaView>
+  );
+};
+
+export default RecordScreen;
