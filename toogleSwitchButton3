@@ -1,0 +1,53 @@
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+
+const YourComponent = () => {
+  const [selectedOption, setSelectedOption] = useState('day');
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+  };
+
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          backgroundColor: selectedOption === 'day' ? 'lightblue' : 'transparent',
+          borderRadius: 20,
+          paddingVertical: 10,
+          alignItems: 'center',
+        }}
+        onPress={() => handleOptionChange('day')}
+      >
+        <Text style={{ fontWeight: selectedOption === 'day' ? 'bold' : 'normal' }}>Day</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          backgroundColor: selectedOption === 'week' ? 'lightblue' : 'transparent',
+          borderRadius: 20,
+          paddingVertical: 10,
+          alignItems: 'center',
+        }}
+        onPress={() => handleOptionChange('week')}
+      >
+        <Text style={{ fontWeight: selectedOption === 'week' ? 'bold' : 'normal' }}>Week</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          backgroundColor: selectedOption === 'month' ? 'lightblue' : 'transparent',
+          borderRadius: 20,
+          paddingVertical: 10,
+          alignItems: 'center',
+        }}
+        onPress={() => handleOptionChange('month')}
+      >
+        <Text style={{ fontWeight: selectedOption === 'month' ? 'bold' : 'normal' }}>Month</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default YourComponent;
